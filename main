@@ -1,0 +1,88 @@
+package Main;
+
+import java.io.*;
+import java.util.*;
+
+import java.util.Scanner;
+
+
+public class main {
+
+final static String USERS = "users.txt";
+
+	public static void main(String[] args) {
+		 Scanner input = new Scanner(System.in);
+
+while(true) {
+System.out.println ("First name: ");
+String firstName = input.nextLine();
+System.out.println("Last name: ");
+String lastName = input.nextLine();
+String fullName = firstName +" "+ lastName;
+if (firstName.matches("[a-zA-Z]+")) {
+	if (lastName.matches("[a-zA-Z]+")) {
+		Users customer;
+		if(userExists(fullName)) {
+			System.out.println("Welcome back " + fullName + ".");
+			break;
+		}else {
+		System.out.println("Phone Number: ");
+		String phone = input.nextLine();
+
+		System.out.println("Address: ");
+		String address = input.nextLine();
+		customer = new Users(firstName, lastName, address, phone);
+		saveCustomer(customer);
+		break;
+	} 
+	}else {
+		System.out.println ("Invalid last name, please try again");
+}} else {
+		System.out.println ("Invalid first name, please try again");
+}}
+
+System.out.println("Welcome to Simple Sheets, please place your order!");
+double quant = 0;
+double price = 0;
+double total = 0;
+	System.out.println("Hammermill Paper, $31.99.");
+	System.out.println("Please enter the desired quantity, or enter 0 to continue.");
+		quant = input.nextDouble();
+		price = quant * 31.99;
+		total += price;
+		System.out.println("Subtotal: $" + total);
+	System.out.println("Tru Red Paper, $55.99.");
+	System.out.println("Please enter the desired quantity, or enter 0 to continue.");
+		quant = input.nextDouble();
+		price = quant * 55.99;
+		total += price;
+		System.out.println("Subtotal: $" + total);
+	System.out.println("Domtar Paper, $59.29.");
+	System.out.println("Please enter the desired quantity, or enter 0 to continue.");
+		quant = input.nextDouble();
+		price = quant * 59.29;
+		total += price;
+		System.out.println("Total: $" + total);
+	System.out.println("Thank you for shopping with Simple Sheets!");
+	}
+	
+	
+	
+static boolean userExists(String fullName) {
+	try (BufferedReader reader = new BufferedReader(new FileReader(USERS))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (line.toLowerCase().startsWith(fullName.toLowerCase() + ",")) return true;
+        }
+    } catch (IOException e) {}
+    return false;
+}
+
+static void saveCustomer(Users c) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(USERS, true))) {
+        writer.write(c.toString());
+        writer.newLine();
+    } catch (IOException e) {
+        System.out.println("Error saving user.");
+    }
+}}
