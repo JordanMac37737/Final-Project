@@ -1,0 +1,22 @@
+package Main;
+public class Users {
+    String firstName, lastName, address, phone;
+
+    public Users(String firstName, String lastName, String address, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+    }
+
+    public String toString() {
+        return firstName + " " + lastName + "," + phone + "," + address;
+    }
+
+    public static Users fromString(String line) {
+        String[] parts = line.split(",", 4);
+        if (parts.length < 4) return null;
+        String[] names = parts[0].split(" ", 2);
+        return new Users(names[0], names[1], parts[2], parts[3]);
+    }
+}
